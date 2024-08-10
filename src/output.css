@@ -553,3 +553,38 @@ video {
   --tw-contain-paint:  ;
   --tw-contain-style:  ;
 }
+
+.m-5 {
+  margin: 1.25rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.gap-1 {
+  gap: 0.25rem;
+}
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.font-Nunito {
+  font-family: Nunito Sans, sans-serif;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.icon {
+  color: whitesmoke;
+  font-variation-settings: 'GRAD' -25;
+}
