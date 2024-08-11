@@ -11,6 +11,7 @@ module.exports = {
         'systemGray2': '#636366',
         'systemGray3': '#48484A',
         'systemGray4': '#3A3A3C',
+        'systemGray5': '#2C2C2E',
         'systemGray6': '#1C1C1E',
       },
       textColor: {
@@ -18,8 +19,17 @@ module.exports = {
         'systemGray2': '#636366',
         'systemGray3': '#48484A',
         'systemGray4': '#3A3A3C',
+        'systemGray5': '#2C2C2E',
         'systemGray6': '#1C1C1E',
       },
+      borderColor: {
+        'systemGray': '#8E8E93',
+        'systemGray2': '#636366',
+        'systemGray3': '#48484A',
+        'systemGray4': '#3A3A3C',
+        'systemGray5': '#2C2C2E',
+        'systemGray6': '#1C1C1E',
+      }
     },
   },
   plugins: [],
