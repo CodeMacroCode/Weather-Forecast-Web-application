@@ -2,7 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.icon {
+.material-symbols-outlined.icon {
     color: whitesmoke;
-    font-variation-settings: 'GRAD' -25;
+    font-size: 20px;
+    font-weight: 500;
 }
