@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +9,13 @@
     <link rel="shortcut icon" href="src/favicon.svg" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
+
 <body class="bg-black text-white">
     <!-- Head -->
+
     <head>
         <!-- navigation menu -->
-        <nav class="flex flex-col h-screen justify-center items-center gap-3">
+        <nav id="navigation" class="flex flex-col mt-5 justify-center items-center gap-3 h-screen">
             <!-- LOGO -->
             <div class="flex gap-1 items-center">
                 <span class="material-symbols-outlined icon">
@@ -23,12 +26,65 @@
                 </span>
             </div>
             <!-- Search bar -->
-            <input type="text" placeholder="Search for the city" class="bg-zinc-800 h-10 p-3 focus:outline-none placeholder:lowercase rounded-full capitalize">
+            <input id="city" type="text" placeholder="enter city"
+                class="bg-systemGray6 h-10 p-3 focus:outline-none placeholder:lowercase rounded-full capitalize text-center">
+            <button id="search-btn"
+                class="bg-systemGray5 w-20 h-8 rounded-md active:bg-systemGray6 text-systemGray">Search</button>
         </nav>
     </head>
-    <main>
-
+    <main id="weather-container" class="m-4 flex flex-col gap-3 hidden">
+        <!-- Current weather -->
+        <section class="bg-systemGray6 rounded-2xl border-solid border-2 border-systemGray5 p-3 flex flex-col gap-3">
+            <div class="flex flex-col gap-2">
+                <span class="font-extrabold">Now</span>
+                <div class="font-bold flex gap-16 items-center">
+                    <div id="weather-temp" class="text-5xl font-semibold"></div>
+                    <img id="weather-icon" class="size-14">
+                </div>
+                <div id="weather-info" class="capitalize"></div>
+            </div>
+            <div class="w-full h-px bg-systemGray4"></div>
+            <div class="flex items-center gap-2 text-systemGray">
+                <span class="material-symbols-outlined icon">
+                    calendar_today
+                </span>
+                <div id="date" class="font-bold text-sm">
+                </div>
+            </div>
+            <div class="flex items-center gap-2 text-systemGray">
+                <span class="material-symbols-outlined icon">
+                    location_on
+                </span>
+                <div id="location" class="font-bold text-sm">
+                </div>
+            </div>
+        </section>
+        <!--Weather Forecast-->
+        <span class="font-bold">Today at</span>
+        <section id="hourly-forecast">
+        </section>
+        <span class="font-extrabold">5 Days Forecast</span>
+        <section id="days-forecast"
+            class="bg-systemGray6 rounded-2xl border-solid border-2 border-systemGray5 p-3 flex flex-col gap-3">
+        </section>
+        <section id="todays-highlights"
+            class="bg-systemGray6 rounded-2xl border-solid border-2 border-systemGray5 p-3 flex flex-col gap-3">
+            <span class="font-bold">Todays Highlights</span>
+            <div id="air-quality-index"></div>
+            <div id="sunrise-sunset"></div>
+            <div id="humidity"></div>
+            <div id="pressure"></div>
+            <div id="visibility"></div>
+            <div id="feels-like"></div>
+        </section>
     </main>
+
+    <!--ADD SOCIAL MEDIAS AND CONTACTS-->
+    <footer class="bg-systemGray6 p-3 text-sm text-center ">
+        <p>Copyright <span id="current-year"></span> Piyush Harde. All Rights Reserved.</p>
+        <p>Powered By</p>
+    </footer>
     <script src="src/script.js"></script>
 </body>
+
 </html>
