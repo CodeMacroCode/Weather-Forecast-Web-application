@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="src/output.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/output.css" />
     <title>Weather io</title>
-    <link rel="shortcut icon" href="src/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="src/favicon.svg" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
@@ -15,61 +15,51 @@
 
     <head>
         <!-- navigation menu -->
-        <nav id="navigation" class="flex flex-col mt-5 justify-center items-center gap-3 h-screen">
+        <nav id="navigation" class="flex flex-col justify-center items-center gap-3 mt-5 h-screen">
             <!-- LOGO -->
-            <div class="flex gap-1 items-center">
-                <span class="material-symbols-outlined icon">
-                    cloud
-                </span>
-                <span class="text-white font-bold text-xl">
-                    weatherio
-                </span>
+            <div class="flex items-center gap-1">
+                <span class="icon material-symbols-outlined"> cloud </span>
+                <span class="font-bold text-white text-xl"> weatherio </span>
             </div>
             <!-- Search bar -->
             <input id="city" type="text" placeholder="enter city"
-                class="bg-systemGray6 h-10 p-3 focus:outline-none placeholder:lowercase rounded-full capitalize text-center">
-            <button id="search-btn"
-                class="bg-systemGray5 w-20 h-8 rounded-md active:bg-systemGray6 text-systemGray">Search</button>
+                class="bg-systemGray6 p-3 rounded-full h-10 focus:outline-none text-center capitalize placeholder:lowercase" />
+            <button id="search-btn" class="bg-systemGray5 active:bg-systemGray6 rounded-md w-20 h-8 text-systemGray">
+                Search
+            </button>
         </nav>
     </head>
-    <main id="weather-container" class="m-4 flex flex-col gap-3 hidden">
+    <main id="weather-container" class="flex flex-col gap-3 hidden m-4">
         <!-- Current weather -->
-        <section class="bg-systemGray6 rounded-2xl border-solid border-2 border-systemGray5 p-3 flex flex-col gap-3">
+        <section class="flex flex-col gap-3 border-2 border-systemGray5 bg-systemGray6 p-3 border-solid rounded-2xl">
             <div class="flex flex-col gap-2">
                 <span class="font-extrabold">Now</span>
-                <div class="font-bold flex gap-16 items-center">
-                    <div id="weather-temp" class="text-5xl font-semibold"></div>
-                    <img id="weather-icon" class="size-14">
+                <div class="flex items-center font-bold w-full">
+                    <div id="weather-temp" class="font-semibold text-5xl flex gap-10 items-center"></div>
                 </div>
-                <div id="weather-info" class="capitalize"></div>
+                <div id="weather-info" class="capitalize text-systemGray text-sm font-bold"></div>
             </div>
-            <div class="w-full h-px bg-systemGray4"></div>
+            <div class="bg-systemGray4 w-full h-px"></div>
             <div class="flex items-center gap-2 text-systemGray">
-                <span class="material-symbols-outlined icon">
-                    calendar_today
-                </span>
-                <div id="date" class="font-bold text-sm">
-                </div>
+                <span class="icon material-symbols-outlined"> calendar_today </span>
+                <div id="date" class="font-bold text-sm"></div>
             </div>
             <div class="flex items-center gap-2 text-systemGray">
-                <span class="material-symbols-outlined icon">
-                    location_on
-                </span>
-                <div id="location" class="font-bold text-sm">
-                </div>
+                <span class="icon material-symbols-outlined"> location_on </span>
+                <div id="location" class="font-bold text-sm"></div>
             </div>
         </section>
         <!--Weather Forecast-->
-        <span class="font-bold">Today at</span>
-        <section id="hourly-forecast">
+        <section id="hourly-forecast" class="flex items-center gap-2 px-2 w-full h-44 overflow-x-auto scrollbar-hide">
         </section>
         <span class="font-extrabold">5 Days Forecast</span>
         <section id="days-forecast"
-            class="bg-systemGray6 rounded-2xl border-solid border-2 border-systemGray5 p-3 flex flex-col gap-3">
+            class="flex flex-col gap-3 border-2 border-systemGray5 bg-systemGray6 p-3 border-solid rounded-2xl">
         </section>
+        <div class="flex flex-col gap-3"></div>
         <section id="todays-highlights"
-            class="bg-systemGray6 rounded-2xl border-solid border-2 border-systemGray5 p-3 flex flex-col gap-3">
-            <span class="font-bold">Todays Highlights</span>
+            class="flex flex-col gap-3 border-2 border-systemGray5 bg-systemGray6 p-3 border-solid rounded-2xl">
+            <span class="font-bold">Weather details</span>
             <div id="air-quality-index"></div>
             <div id="sunrise-sunset"></div>
             <div id="humidity"></div>
@@ -80,8 +70,11 @@
     </main>
 
     <!--ADD SOCIAL MEDIAS AND CONTACTS-->
-    <footer class="bg-systemGray6 p-3 text-sm text-center ">
-        <p>Copyright <span id="current-year"></span> Piyush Harde. All Rights Reserved.</p>
+    <footer class="bg-systemGray6 p-3 text-center text-sm">
+        <p>
+            Copyright <span id="current-year"></span> Piyush Harde. All Rights
+            Reserved.
+        </p>
         <p>Powered By</p>
     </footer>
     <script src="src/script.js"></script>

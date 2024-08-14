@@ -4,17 +4,16 @@ const input = document.getElementById("city");
 function displayWeather(data) {
   // Implement logic to display current weather data
   const weatherTemp = document.getElementById("weather-temp");
-  const weatherIcon = document.getElementById("weather-icon");
   const weatherInfo = document.getElementById("weather-info");
   const date = document.getElementById("date");
   const location = document.getElementById("location");
 
   // Clear previous content.
   weatherTemp.innerHTML = "";
-  weatherIcon.src = "";
   weatherInfo.innerHTML = "";
   date.innerHTML = "";
   location.innerHTML = "";
+  weatherInfo.innerHTML = "";
 
   if (data.cod === "404") {
     weatherInfo.innerHTML = `<p>${data.message}</p>`;
@@ -23,6 +22,8 @@ function displayWeather(data) {
     const countryName = data.sys.country;
     const temperature = Math.round(data.main.temp - 273.15); // Convert from kelvin to celsius
     const description = data.weather[0].description;
+    const iconCode = data.weather[0].icon;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
 
     const now = new Date();
     const days = [
@@ -52,10 +53,22 @@ function displayWeather(data) {
     const currentDate = now.getDate();
     const monthOfYear = months[now.getMonth()];
 
-    const temperatureHtml = `<p>${temperature}&deg;C</p>`;
-    const weatherInfoHtml = `<p>${description}</p>`;
-    const dateHtml = `<p>${dayOfWeek} ${currentDate}, ${monthOfYear}</p>`;
-    const locationHtml = `<p>${cityName}, ${countryName}</p>`;
+    const temperatureHtml = `
+        <p>${temperature}&deg;C</p>
+        <img src="${iconUrl}" alt="Weather icon" class="w-20">
+        `;
+
+    const weatherInfoHtml = `
+        <p>${description}</p>
+        `;
+
+    const dateHtml = `
+        <p>${dayOfWeek} ${currentDate}, ${monthOfYear}</p>
+        `;
+
+    const locationHtml = `
+        <p>${cityName}, ${countryName}</p>
+        `;
 
     weatherTemp.innerHTML = temperatureHtml;
     weatherInfo.innerHTML = weatherInfoHtml;
@@ -64,9 +77,37 @@ function displayWeather(data) {
   }
 }
 
-function displayHourly(data) {
+function displayHourly(forecastData) {
   // Implement logic to display hourly forecast data
+  const hourlyForecast = document.getElementById("hourly-forecast");
+
+  hourlyForecast.innerHTML = "";
+  const next24hours = forecastData.slice(0, 8);
+
+  next24hours.forEach((item) => {
+    const dateTime = new Date(item.dt * 1000); // Convert Unix Timestamp to Milliseconds.
+    let hour = dateTime.getHours();
+    const period = hour >= 12 ? "PM" : "AM"; // Determine AM/PM
+    hour = hour % 12; // Convert to 12-hour format
+    hour = hour ? hour : 12; // If hour is 0 (midnight), convert to 12
+
+    const hourlyTemperature = Math.round(item.main.temp - 273.15); // Convert kelvin to celsius.
+    const iconCode = item.weather[0].icon;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+
+    const hourlyForecastHtml = `
+      <div class="flex h-36 w-24 flex-shrink-0 flex-col items-center justify-center bg-systemGray6 rounded-2xl">
+          <span>${hour}:00 ${period}</span>
+          <img class="w-20" src="${iconUrl}" alt="Hourly weather icon">
+          <span>${hourlyTemperature}&deg;C</span>
+      </div>
+  `;
+
+    hourlyForecast.innerHTML += hourlyForecastHtml;
+  });
 }
+
+function displayFiveDaysForecast(data) {}
 
 function getWeather() {
   const city = document.getElementById("city").value;
@@ -95,7 +136,10 @@ function getWeather() {
 
   fetch(forecastUrl)
     .then((res) => res.json())
-    .then((data) => displayHourly(data.list))
+    .then((data) => {
+      displayHourly(data.list);
+      displayFiveDaysForecast(data.list);
+    })
     .catch((error) => {
       console.error(`Error fetching forecast data: ${error.message}`);
       alert(`Error fetching forecast data. Please try again.`);
