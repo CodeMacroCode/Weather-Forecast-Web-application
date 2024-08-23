@@ -50,8 +50,10 @@ function displayWeather(data){
     const date = document.getElementById('date');
     const location = document.getElementById('location');
     
-    const futureForecast = document.getElementById('days-forecast');
     const hourlyForecast = document.getElementById('todays-highlights');
+    
+    const futureDaysForecast = document.getElementById('five-days-forecast');
+
     const airQualityIndex = document.getElementById('air-quality-index');
     const sunriseSunset = document.getElementById('sunrise-sunset');
     const humidity = document.getElementById('humidity');

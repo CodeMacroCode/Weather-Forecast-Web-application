@@ -107,7 +107,43 @@ function displayHourly(forecastData) {
   });
 }
 
-function displayFiveDaysForecast(data) {}
+function displayFiveDaysForecast(forecastData) {
+  const fiveDaysForecast = document.getElementById("five-days-forecast");
+  fiveDaysForecast.innerHTML = ""; // Clear previous data.
+  const dailyData = []; // Array to store one data point per day
+  console.log(dailyData);
+
+  forecastData.forEach((item) => {
+    // Check if the hour is 12:00 PM
+    if (item.dt_txt.slice(11, 13) == 12) {
+      dailyData.push(item);
+    }
+  });
+
+  // Limit data for only five days.
+  const fiveDayForecast = dailyData.slice(0, 5);
+
+  fiveDayForecast.forEach((item) => {
+    const dateTime = new Date(item.dt * 1000);
+    const weekDay = dateTime.toLocaleDateString("en-US", { weekday: "short" });
+    const iconCode = item.weather[0].icon;
+    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@4x.png`;
+    const weatherDescription = item.weather[0].description;
+    const weatherTemp = Math.round(item.main.temp - 273.15); // Convert kelvin to celsius
+
+    const dailyForecastHtml = `
+      <div class="grid grid-cols-4 text-center gap-2">
+        <span>${weekDay}</span>
+        <img class="size-12" src="${iconUrl}" alt="Weather icon">
+        <span>${weatherDescription}</span>
+        <span>${weatherTemp}&deg;C</span>
+      </div>
+    `;
+
+    // Append to the container
+    fiveDaysForecast.innerHTML += dailyForecastHtml;
+  });
+}
 
 function getWeather() {
   const city = document.getElementById("city").value;
