@@ -13,6 +13,7 @@ module.exports = {
         systemGray4: "#3A3A3C",
         systemGray5: "#2C2C2E",
         systemGray6: "#1C1C1E",
+        systemGray7: "#222831",
       },
       textColor: {
         systemGray: "#8E8E93",

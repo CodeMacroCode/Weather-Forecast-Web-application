@@ -54,8 +54,8 @@ function displayWeather(data){
     
     const futureDaysForecast = document.getElementById('five-days-forecast');
 
-    const airQualityIndex = document.getElementById('air-quality-index');
-    const sunriseSunset = document.getElementById('sunrise-sunset');
+   
+    const humidity = document.getElementById('wind');
     const humidity = document.getElementById('humidity');
     const airPressure = document.getElementById('pressure');
     const visibility = document.getElementById('visibility');

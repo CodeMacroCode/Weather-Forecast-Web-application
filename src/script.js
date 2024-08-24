@@ -108,10 +108,10 @@ function displayHourly(forecastData) {
 }
 
 function displayFiveDaysForecast(forecastData) {
+  // Implement logic to display 5 days weather forecast
   const fiveDaysForecast = document.getElementById("five-days-forecast");
   fiveDaysForecast.innerHTML = ""; // Clear previous data.
   const dailyData = []; // Array to store one data point per day
-  console.log(dailyData);
 
   forecastData.forEach((item) => {
     // Check if the hour is 12:00 PM
@@ -145,6 +145,85 @@ function displayFiveDaysForecast(forecastData) {
   });
 }
 
+function displayWeatherInfo(data) {
+  // Implement logic to display current weather information.
+  const wind = document.getElementById("wind");
+  const humidity = document.getElementById("humidity");
+  const airPressure = document.getElementById("pressure");
+  const visibility = document.getElementById("visibility");
+  const feelsLike = document.getElementById("feels-like");
+  const todaysHighlight = document.getElementById("todays-highlights");
+
+  // Clear previous data.
+  wind.innerHTML = "";
+  humidity.innerHTML = "";
+  airPressure.innerHTML = "";
+  visibility.innerHTML = "";
+  feelsLike.innerHTML = "";
+
+  const feelsLikeTemp = Math.round(data.main.feels_like - 273.15); // Convert from kelvin to celsius
+  const currWindSpeed = Math.round(data.wind.speed * 3.6);
+  const currHumidity = data.main.humidity;
+  const currAirPressure = data.main.pressure;
+  const currVisibility = Math.round(data.visibility / 1000);
+
+  const currWindHtml = `
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
+      <span class="material-symbols-outlined">air</span>
+      <div class="flex justify-between">
+      <span>SW wind</span>
+      <span>${currWindSpeed} km/h</span>
+      </div>
+    </div>
+  `;
+
+  const feelsLikeTempHtml = `
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
+      <span class="material-symbols-outlined">device_thermostat</span>
+      <div class="flex justify-between">
+      <span>Feels like</span>
+      <span>${feelsLikeTemp}&deg;C</span>
+      </div>
+    </div>
+  `;
+
+  const currHumidityHtml = `
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
+      <span class="material-symbols-outlined">humidity_mid</span>
+      <div class="flex justify-between">
+      <span>Humidity</span>
+      <span>${currHumidity} %</span>
+      </div>
+    </div>
+  `;
+
+  const currAirPressureHtml = `
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
+      <span class="material-symbols-outlined">airwave</span>
+      <div class="flex justify-between">
+      <span>Air pressure</span>
+      <span>${currAirPressure} hPa</span>
+      </div>
+    </div>
+  `;
+
+  const currVisibilityHtml = `
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
+      <span class="material-symbols-outlined">visibility</span>
+      <div class="flex justify-between">
+      <span>Visibility</span>
+      <span>${currVisibility} km</span>
+      </div>
+    </div>
+  `;
+
+  wind.innerHTML = currWindHtml;
+  feelsLike.innerHTML = feelsLikeTempHtml;
+  visibility.innerHTML = currVisibilityHtml;
+  airPressure.innerHTML = currAirPressureHtml;
+  humidity.innerHTML = currHumidityHtml;
+}
+
 function getWeather() {
   const city = document.getElementById("city").value;
 
@@ -164,7 +243,10 @@ function getWeather() {
 
   fetch(currentWeatherUrl)
     .then((res) => res.json())
-    .then((data) => displayWeather(data))
+    .then((data) => {
+      displayWeather(data);
+      displayWeatherInfo(data);
+    })
     .catch((error) => {
       console.error(`Error fetching current weather data: ${error.message}`);
       alert(`Error fetching current weather data. Please try again.`);

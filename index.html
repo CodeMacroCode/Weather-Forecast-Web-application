@@ -31,7 +31,7 @@
     </head>
     <main id="weather-container" class="flex flex-col gap-3 hidden m-4">
         <!-- Current weather -->
-        <section class="flex flex-col gap-3 border-2 border-systemGray5 bg-systemGray6 p-3 border-solid rounded-2xl">
+        <section class="flex flex-col gap-3 bg-systemGray5 p-3 border-solid rounded-2xl">
             <div class="flex flex-col gap-2">
                 <span class="font-extrabold">Now</span>
                 <div class="flex items-center font-bold w-full">
@@ -54,29 +54,30 @@
         </section>
         <!--Five Days Forecast-->
         <span class="font-extrabold">5 Days Forecast</span>
-        <section id="five-days-forecast"
-            class="grid grid-rows-5 gap-3 border-2 border-systemGray5 bg-systemGray6 p-3 border-solid rounded-2xl">
+        <section id="five-days-forecast" class="grid grid-rows-5 gap-3 bg-systemGray5 p-3 border-solid rounded-2xl">
         </section>
-        <div class="flex flex-col gap-3"></div>
-        <section id="todays-highlights"
-            class="flex flex-col gap-3 border-2 border-systemGray5 bg-systemGray6 p-3 border-solid rounded-2xl">
-            <span class="font-bold">Weather details</span>
-            <div id="air-quality-index"></div>
-            <div id="sunrise-sunset"></div>
+        <p class="font-bold">Weather details</p>
+        <section id="todays-highlights" class="flex flex-col gap-3 bg-systemGray5 p-3 border-solid rounded-2xl">
+            <div id="feels-like"></div>
+            <div id="wind"></div>
             <div id="humidity"></div>
             <div id="pressure"></div>
             <div id="visibility"></div>
-            <div id="feels-like"></div>
         </section>
     </main>
 
     <!--ADD SOCIAL MEDIAS AND CONTACTS-->
-    <footer class="bg-systemGray6 p-3 text-center text-sm">
+    <footer class="flex flex-col bg-systemGray6 p-3 text-sm items-center gap-2">
         <p>
-            Copyright <span id="current-year"></span> Piyush Harde. All Rights
+            Copyright <span id="current-year"></span> weatherio. All Rights
             Reserved.
         </p>
-        <p>Powered By</p>
+        <div class="flex gap-2">
+            <span>Powered By</span>
+            <a href="https://openweathermap.org/">
+                <img src="src/assets/openweather.png" alt="openweather" class="h-6">
+            </a>
+        </div>
     </footer>
     <script src="src/script.js"></script>
 </body>
