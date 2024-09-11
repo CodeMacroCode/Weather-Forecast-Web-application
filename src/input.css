@@ -25,4 +25,8 @@
     -ms-overflow-style: none; /* Internet Explorer and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  .symbol-Size {
+    font-size: larger;
+  }
 }

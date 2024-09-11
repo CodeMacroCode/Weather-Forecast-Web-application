@@ -15,7 +15,7 @@
 
     <head>
         <!-- navigation menu -->
-        <nav id="navigation" class="flex flex-col justify-center items-center gap-3 mt-5 h-screen">
+        <nav id="navigation" class="flex flex-col justify-center items-center gap-3 h-screen m-5">
             <!-- LOGO -->
             <div class="flex items-center gap-1">
                 <span class="icon material-symbols-outlined"> cloud </span>
@@ -29,50 +29,61 @@
             </button>
         </nav>
     </head>
-    <main id="weather-container" class="flex flex-col gap-3 hidden m-4">
-        <!-- Current weather -->
-        <section class="flex flex-col gap-3 bg-systemGray5 p-3 border-solid rounded-2xl">
-            <div class="flex flex-col gap-2">
-                <span class="font-extrabold">Now</span>
-                <div class="flex items-center font-bold w-full">
-                    <div id="weather-temp" class="font-semibold text-5xl flex gap-10 items-center"></div>
+    <main id="weather-container" class="flex flex-col sm:flex-row gap-3 hidden m-4 sm:m-10">
+        <section class="flex flex-col gap-3">
+            <!-- Current weather -->
+            <section class="flex flex-col sm:self-start sm:w-80 gap-3 bg-systemGray6 p-3 border-solid rounded-2xl">
+                <div class="flex flex-col gap-2">
+                    <span class="font-extrabold">Now</span>
+                    <div class="flex items-center font-bold w-full">
+                        <div id="weather-temp" class="font-semibold text-5xl flex gap-10 items-center"></div>
+                    </div>
+                    <div id="weather-info" class="capitalize text-systemGray text-sm font-bold"></div>
                 </div>
-                <div id="weather-info" class="capitalize text-systemGray text-sm font-bold"></div>
-            </div>
-            <div class="bg-systemGray4 w-full h-px"></div>
-            <div class="flex items-center gap-2 text-systemGray">
-                <span class="icon material-symbols-outlined"> calendar_today </span>
-                <div id="date" class="font-bold text-sm"></div>
-            </div>
-            <div class="flex items-center gap-2 text-systemGray">
-                <span class="icon material-symbols-outlined"> location_on </span>
-                <div id="location" class="font-bold text-sm"></div>
-            </div>
+                <div class="bg-systemGray4 w-full h-px"></div>
+                <div class="flex items-center gap-2 text-systemGray">
+                    <span class="icon material-symbols-outlined"> calendar_today </span>
+                    <div id="date" class="font-bold text-sm"></div>
+                </div>
+                <div class="flex items-center gap-2 text-systemGray">
+                    <span class="icon material-symbols-outlined"> location_on </span>
+                    <div id="location" class="font-bold text-sm"></div>
+                </div>
+            </section>
+
+            <!--Five Days Forecast-->
+            <span class="font-extrabold">5 Days Forecast</span>
+            <section id="five-days-forecast"
+                class="sm:self-start sm:w-80 grid grid-rows-5 gap-3 bg-systemGray6 p-3 border-solid rounded-2xl">
+            </section>
         </section>
-        <!--Weather Forecast-->
-        <section id="hourly-forecast" class="flex items-center gap-2 px-2 w-full h-44 overflow-x-auto scrollbar-hide">
-        </section>
-        <!--Five Days Forecast-->
-        <span class="font-extrabold">5 Days Forecast</span>
-        <section id="five-days-forecast" class="grid grid-rows-5 gap-3 bg-systemGray5 p-3 border-solid rounded-2xl">
-        </section>
-        <p class="font-bold">Weather details</p>
-        <section id="todays-highlights" class="flex flex-col gap-3 bg-systemGray5 p-3 border-solid rounded-2xl">
-            <div id="feels-like"></div>
-            <div id="wind"></div>
-            <div id="humidity"></div>
-            <div id="pressure"></div>
-            <div id="visibility"></div>
+        <!--Weather Details-->
+        <section class="flex flex-col gap-3">
+            <p class="font-bold">Weather details</p>
+            <section id="todays-highlights"
+                class="flex flex-col sm:grid sm:grid-cols-4 gap-3 bg-systemGray5 p-5 border-solid rounded-2xl">
+                <div id="temp-min-max" class="sm:col-span-2"></div>
+                <div id="sunrise-sunset" class="sm:col-span-2"></div>
+                <div id="feels-like"></div>
+                <div id="humidity"></div>
+                <div id="pressure"></div>
+                <div id="visibility"></div>
+            </section>
+            <!--Weather Forecast-->
+            <section id="hourly-forecast"
+                class="flex items-center gap-2 px-2 w-full h-44 overflow-x-auto scrollbar-hide">
+            </section>
         </section>
     </main>
 
     <!--ADD SOCIAL MEDIAS AND CONTACTS-->
-    <footer class="flex flex-col bg-systemGray6 p-3 text-sm items-center gap-2">
+    <footer
+        class="flex max-sm:flex-col max-sm:bg-systemGray6 w-full  p-3 text-sm items-center justify-center gap-2 sm:gap-3">
         <p>
-            Copyright <span id="current-year"></span> weatherio. All Rights
+            Copyright <span id="current-year">2024</span> weatherio. All Rights
             Reserved.
         </p>
-        <div class="flex gap-2">
+        <div class="flex gap-2 items-center">
             <span>Powered By</span>
             <a href="https://openweathermap.org/">
                 <img src="src/assets/openweather.png" alt="openweather" class="h-6">

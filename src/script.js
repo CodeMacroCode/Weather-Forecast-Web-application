@@ -1,5 +1,6 @@
 const searchBtn = document.getElementById("search-btn");
 const input = document.getElementById("city");
+const recentCitiesDropdown = document.getElementById("recent-cities");
 
 function displayWeather(data) {
   // Implement logic to display current weather data
@@ -135,8 +136,8 @@ function displayFiveDaysForecast(forecastData) {
       <div class="grid grid-cols-4 text-center gap-2">
         <span>${weekDay}</span>
         <img class="size-12" src="${iconUrl}" alt="Weather icon">
-        <span>${weatherDescription}</span>
-        <span>${weatherTemp}&deg;C</span>
+        <span class="sm:text-sm text-systemGray">${weatherDescription}</span>
+        <span class="sm:text-sm text-systemGray">${weatherTemp}&deg;C</span>
       </div>
     `;
 
@@ -147,81 +148,87 @@ function displayFiveDaysForecast(forecastData) {
 
 function displayWeatherInfo(data) {
   // Implement logic to display current weather information.
-  const wind = document.getElementById("wind");
   const humidity = document.getElementById("humidity");
   const airPressure = document.getElementById("pressure");
   const visibility = document.getElementById("visibility");
   const feelsLike = document.getElementById("feels-like");
-  const todaysHighlight = document.getElementById("todays-highlights");
+  const tempMinMax = document.getElementById("temp-min-max");
 
   // Clear previous data.
-  wind.innerHTML = "";
   humidity.innerHTML = "";
   airPressure.innerHTML = "";
   visibility.innerHTML = "";
   feelsLike.innerHTML = "";
+  tempMinMax.innerHTML = "";
 
   const feelsLikeTemp = Math.round(data.main.feels_like - 273.15); // Convert from kelvin to celsius
-  const currWindSpeed = Math.round(data.wind.speed * 3.6);
   const currHumidity = data.main.humidity;
   const currAirPressure = data.main.pressure;
   const currVisibility = Math.round(data.visibility / 1000);
+  const minTemp = data.main.temp_min;
+  const maxTemp = data.main.temp_max;
 
-  const currWindHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
-      <span class="material-symbols-outlined">air</span>
+  const maxMinTempHtml = `
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:h-36 sm:justify-between">
+      <span class="text-sm text-systemGray">Max & Min Temperature</span>
       <div class="flex justify-between">
-      <span>SW wind</span>
-      <span>${currWindSpeed} km/h</span>
+        <div>
+          <span class="text-xs text-systemGray">Min Temperature</span>
+          <span class="text-xl font-semibold">${minTemp}&deg;C</span>
+        </div>
+        <div>
+          <span class="text-xs text-systemGray">Max Temperature</span>
+          <span class="text-xl font-semibold">${maxTemp}&deg;C</span>
+        </div>
       </div>
     </div>
   `;
 
   const feelsLikeTempHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
-      <span class="material-symbols-outlined">device_thermostat</span>
-      <div class="flex justify-between">
-      <span>Feels like</span>
-      <span>${feelsLikeTemp}&deg;C</span>
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+      <span class="text-sm text-systemGray">Feels like</span>
+      <div class="flex justify-between items-center">
+        <img src="src/assets/device_thermostat.png" class="size-12 font-bold">
+        <span class="text-xl font-semibold">${feelsLikeTemp}&deg;C</span>
       </div>
     </div>
   `;
 
   const currHumidityHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
-      <span class="material-symbols-outlined">humidity_mid</span>
-      <div class="flex justify-between">
-      <span>Humidity</span>
-      <span>${currHumidity} %</span>
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+      <span class="text-sm text-systemGray">Humidity</span>
+      <div class="flex justify-between items-center">
+        <img src="src/assets/humidity_mid.png" class="size-12 font-bold">
+        <span class="text-xl font-semibold">${currHumidity} %</span>
       </div>
     </div>
   `;
 
   const currAirPressureHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
-      <span class="material-symbols-outlined">airwave</span>
-      <div class="flex justify-between">
-      <span>Air pressure</span>
-      <span>${currAirPressure} hPa</span>
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+      <span class="text-sm text-systemGray">Air pressure</span>
+      <div class="flex justify-between items-center">
+        <img src="src/assets/airwave.png" class="size-12 font-bold">
+        <span class="text-xl font-semibold">${currAirPressure} hPa</span>
       </div>
     </div>
   `;
 
   const currVisibilityHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5">
-      <span class="material-symbols-outlined">visibility</span>
-      <div class="flex justify-between">
-      <span>Visibility</span>
-      <span>${currVisibility} km</span>
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+      <span class="text-sm text-systemGray">Visibility</span>
+      <div class="flex justify-between items-center">
+        <img src="src/assets/visibility.png" class="size-12 font-bold">
+        <span class="text-xl font-semibold">${currVisibility} km</span>
       </div>
     </div>
   `;
 
-  wind.innerHTML = currWindHtml;
   feelsLike.innerHTML = feelsLikeTempHtml;
   visibility.innerHTML = currVisibilityHtml;
   airPressure.innerHTML = currAirPressureHtml;
   humidity.innerHTML = currHumidityHtml;
+  tempMinMax.innerHTML = maxMinTempHtml;
 }
 
 function getWeather() {
@@ -238,8 +245,10 @@ function getWeather() {
 
   const navigation = document.getElementById("navigation");
   const weatherContainer = document.getElementById("weather-container");
+  const logo = document.getElementById("logo");
   navigation.classList.remove("h-screen");
   weatherContainer.classList.remove("hidden");
+  searchBtn.classList.add("sm:hidden");
 
   fetch(currentWeatherUrl)
     .then((res) => res.json())
@@ -266,4 +275,11 @@ function getWeather() {
 
 searchBtn.addEventListener("click", () => {
   getWeather();
+});
+
+// activate when press enter.
+input.addEventListener("keypress", () => {
+  if (event.key === "Enter") {
+    getWeather();
+  }
 });
