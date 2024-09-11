@@ -169,7 +169,7 @@ function displayWeatherInfo(data) {
   const maxTemp = data.main.temp_max;
 
   const maxMinTempHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:h-36 sm:justify-between">
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-2/6 p-5 gap-2 sm:h-36 sm:justify-between">
       <span class="text-sm text-systemGray">Max & Min Temperature</span>
       <div class="flex justify-between">
         <div>
@@ -185,7 +185,7 @@ function displayWeatherInfo(data) {
   `;
 
   const feelsLikeTempHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-2/6 gap-2 p-5 sm:w-48 sm:h-36 sm:justify-between">
       <span class="text-sm text-systemGray">Feels like</span>
       <div class="flex justify-between items-center">
         <img src="src/assets/device_thermostat.png" class="size-12 font-bold">
@@ -195,7 +195,7 @@ function displayWeatherInfo(data) {
   `;
 
   const currHumidityHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-2/6 gap-2 p-5 sm:w-48 sm:h-36 sm:justify-between">
       <span class="text-sm text-systemGray">Humidity</span>
       <div class="flex justify-between items-center">
         <img src="src/assets/humidity_mid.png" class="size-12 font-bold">
@@ -205,7 +205,7 @@ function displayWeatherInfo(data) {
   `;
 
   const currAirPressureHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-2/6 gap-2 p-5 sm:w-48 sm:h-36 sm:justify-between">
       <span class="text-sm text-systemGray">Air pressure</span>
       <div class="flex justify-between items-center">
         <img src="src/assets/airwave.png" class="size-12 font-bold">
@@ -215,7 +215,7 @@ function displayWeatherInfo(data) {
   `;
 
   const currVisibilityHtml = `
-    <div class="flex flex-col bg-systemGray6 rounded-xl h-20 p-5 sm:w-48 sm:h-36 sm:justify-between">
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-2/6 gap-2 p-5 sm:w-48 sm:h-36 sm:justify-between">
       <span class="text-sm text-systemGray">Visibility</span>
       <div class="flex justify-between items-center">
         <img src="src/assets/visibility.png" class="size-12 font-bold">
