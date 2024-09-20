@@ -2,6 +2,10 @@
 
 Weatherio is a simple web-based weather application that allows users to search for weather information by city. The application provides current weather conditions, 5-day weather forecasts, and a list of recent searches stored locally.
 
+## Github Repository
+
+[https://github.com/CodeMacroCode/Weather-Forecast-Web-application.git](https://github.com/CodeMacroCode/Weather-Forecast-Web-application.git)
+
 ## Features
 
 - Search for weather by city name.
