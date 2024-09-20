@@ -1,6 +1,7 @@
 const searchBtn = document.getElementById("search-btn");
 const input = document.getElementById("city");
-const recentCitiesDropdown = document.getElementById("recent-cities");
+let recentSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
+const apiKey = "50c72c73c56d68e2105dd2210c9b52df";
 
 function displayWeather(data) {
   // Implement logic to display current weather data
@@ -153,6 +154,7 @@ function displayWeatherInfo(data) {
   const visibility = document.getElementById("visibility");
   const feelsLike = document.getElementById("feels-like");
   const tempMinMax = document.getElementById("temp-min-max");
+  const sunRiseSunSet = document.getElementById("sun-rise-set");
 
   // Clear previous data.
   humidity.innerHTML = "";
@@ -160,25 +162,56 @@ function displayWeatherInfo(data) {
   visibility.innerHTML = "";
   feelsLike.innerHTML = "";
   tempMinMax.innerHTML = "";
+  sunRiseSunSet.innerHTML = "";
 
   const feelsLikeTemp = Math.round(data.main.feels_like - 273.15); // Convert from kelvin to celsius
   const currHumidity = data.main.humidity;
   const currAirPressure = data.main.pressure;
   const currVisibility = Math.round(data.visibility / 1000);
-  const minTemp = data.main.temp_min;
-  const maxTemp = data.main.temp_max;
+  const minTemp = Math.round(data.main.temp_min - 273.15); // Convert from kelvin to celsius
+  const maxTemp = Math.round(data.main.temp_max - 273.15); // Convert from kelvin to celsius
+  const sunrise = data.sys.sunrise;
+  const sunset = data.sys.sunset;
+  const sunriseTime = new Date(sunrise * 1000);
+  const sunsetTime = new Date(sunset * 1000);
+  const sunriseHour = sunriseTime.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
+  const sunsetHour = sunsetTime.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true,
+  });
 
   const maxMinTempHtml = `
     <div class="flex flex-col bg-systemGray6 rounded-xl h-2/6 p-5 gap-2 sm:h-36 sm:justify-between">
       <span class="text-sm text-systemGray">Max & Min Temperature</span>
       <div class="flex justify-between">
-        <div>
+        <div class="flex flex-col">
           <span class="text-xs text-systemGray">Min Temperature</span>
-          <span class="text-xl font-semibold">${minTemp}&deg;C</span>
+          <span class="text-2xl">${minTemp}&deg;C</span>
         </div>
-        <div>
+        <div class="flex flex-col">
           <span class="text-xs text-systemGray">Max Temperature</span>
-          <span class="text-xl font-semibold">${maxTemp}&deg;C</span>
+          <span class="text-2xl">${maxTemp}&deg;C</span>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const sunSetSunRiseHtml = `
+    <div class="flex flex-col bg-systemGray6 rounded-xl h-2/6 p-5 gap-2 sm:h-36 sm:justify-between">
+      <span class="text-sm text-systemGray">Sunrise & Sunset</span>
+      <div class="flex justify-between">
+        <div class="flex flex-col">
+          <span class="text-xs text-systemGray">Sunrise</span>
+          <span class="text-2xl">${sunriseHour}</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xs text-systemGray">Sunset</span>
+          <span class="text-2xl">${sunsetHour}</span>
         </div>
       </div>
     </div>
@@ -229,6 +262,7 @@ function displayWeatherInfo(data) {
   airPressure.innerHTML = currAirPressureHtml;
   humidity.innerHTML = currHumidityHtml;
   tempMinMax.innerHTML = maxMinTempHtml;
+  sunRiseSunSet.innerHTML = sunSetSunRiseHtml;
 }
 
 function getWeather() {
@@ -239,17 +273,20 @@ function getWeather() {
     return;
   }
 
-  const apiKey = "50c72c73c56d68e2105dd2210c9b52df";
   const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
   const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
 
   const navigation = document.getElementById("navigation");
   const weatherContainer = document.getElementById("weather-container");
-  const logo = document.getElementById("logo");
+  const recentSearch = document.getElementById("recent-search");
+  const searchBtn = document.getElementById("search-btn");
   navigation.classList.remove("h-screen");
   weatherContainer.classList.remove("hidden");
   searchBtn.classList.add("sm:hidden");
+  recentSearch.classList.remove("hidden");
 
+  // Fetch current weather data
+  // Fetch forecast data
   fetch(currentWeatherUrl)
     .then((res) => res.json())
     .then((data) => {
@@ -272,6 +309,86 @@ function getWeather() {
       alert(`Error fetching forecast data. Please try again.`);
     });
 }
+
+// Store recent search in localStorage
+function storeRecentSearch(city) {
+  // Implement logic to store recent search data
+  // let recentSearches = JSON.parse(localStorage.getItem("recentSearches")) || [];
+  if (recentSearches.indexOf(city) === -1) {
+    recentSearches.push(city);
+    localStorage.setItem("recentSearches", JSON.stringify(recentSearches));
+  }
+}
+
+// Display recent searches from localStorage
+function displayRecentSearches() {
+  // Implement logic to display recent search data
+  const recentSearchesList = document.getElementById("recent-search-list");
+  recentSearchesList.innerHTML = ""; // Clear previous data.
+
+  const storedSearches =
+    JSON.parse(localStorage.getItem("recentSearches")) || [];
+
+  if (storedSearches.length > 0 && storedSearches) {
+    storedSearches.forEach((city) => {
+      const recentSearchHtml = `
+        <li class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-systemGray7 cursor-pointer">
+          <span>${city}</span>
+        </li>
+      `;
+      recentSearchesList.innerHTML += recentSearchHtml;
+    });
+  } else {
+    const noRecentSearchesHtml = `
+      <li class="flex items-center gap-2 py-2 px-3 rounded-lg text-xs hover:bg-systemGray7">
+        <button disable>No recent searches</button>
+      </li>
+    `;
+    recentSearchesList.innerHTML += noRecentSearchesHtml;
+  }
+
+  // Make sure recent search is visible
+  const recentSearch = document.getElementById("recent-search");
+  recentSearch.classList.remove("hidden"); // Show recent searches
+}
+
+// Event listener for clicking on a recent search item
+document
+  .getElementById("recent-search-list")
+  .addEventListener("click", function (event) {
+    if (event.target.tagName === "SPAN") {
+      const city = event.target.textContent;
+      input.value = city;
+      getWeather(); // Fetch weather for the selected city
+    }
+  });
+
+// Call displayRecentSearches when the page loads
+window.onload = () => {
+  displayRecentSearches();
+};
+
+// Add the city to recent searches when a new search is performed
+searchBtn.addEventListener("click", () => {
+  const city = input.value;
+  if ((!city) in recentSearches) {
+    storeRecentSearch(city);
+    displayRecentSearches();
+    getWeather();
+  }
+});
+
+// Add event listener to perform search when Enter is pressed
+input.addEventListener("keypress", (event) => {
+  if (event.key === "Enter") {
+    const city = input.value;
+    if (city) {
+      storeRecentSearch(city);
+      displayRecentSearches();
+      getWeather();
+    }
+  }
+});
 
 searchBtn.addEventListener("click", () => {
   getWeather();

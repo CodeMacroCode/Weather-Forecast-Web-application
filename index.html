@@ -27,6 +27,23 @@
             <button id="search-btn" class="bg-systemGray5 active:bg-systemGray6 rounded-md w-20 h-8 text-systemGray">
                 Search
             </button>
+
+            <!-- Recent Searches-->
+            <div class="absolute right-2 sm:right-20 sm:top-16 top-5 w-16 sm:w-36" id="recent-search">
+                <details class="group">
+                    <summary
+                        class="inline-flex justify-between w-full rounded-md shadow-sm px-4 py-2 bg-systemGray6 sm:text-sm text-xs font-medium text-systemGray hover:bg-systemGray7 cursor-pointer">
+                        Recent Search
+                    </summary>
+                    <!-- Dropdown Menu -->
+                    <div
+                        class="text-center origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-systemGray6 ring-black">
+                        <div id="recent-search-list" role="menu" aria-orientation="vertical"
+                            aria-labelledby="dropdownButton">
+                        </div>
+                    </div>
+                </details>
+            </div>
         </nav>
     </head>
     <main id="weather-container" class="flex flex-col sm:flex-row gap-3 hidden m-4 sm:m-10">
@@ -63,7 +80,7 @@
             <section id="todays-highlights"
                 class="flex flex-col sm:grid sm:grid-cols-4 gap-3 bg-systemGray5 p-5 border-solid rounded-2xl">
                 <div id="temp-min-max" class="sm:col-span-2"></div>
-                <div id="sunrise-sunset" class="sm:col-span-2"></div>
+                <div id="sun-rise-set" class="sm:col-span-2"></div>
                 <div id="feels-like"></div>
                 <div id="humidity"></div>
                 <div id="pressure"></div>
@@ -76,7 +93,7 @@
         </section>
     </main>
 
-    <!--ADD SOCIAL MEDIAS AND CONTACTS-->
+    <!--Footer-->
     <footer
         class="flex max-sm:flex-col max-sm:bg-systemGray6 w-full  p-3 text-sm items-center justify-center gap-2 sm:gap-3">
         <p>
